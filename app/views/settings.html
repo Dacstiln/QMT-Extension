@@ -1,0 +1,170 @@
+<div class="settings-view-container">
+    <div class="settings-header">
+        <h1 class="view-title">Configuración</h1>
+        <p class="view-subtitle">Personaliza la apariencia y el comportamiento del dashboard</p>
+    </div>
+
+    <div class="settings-content">
+        <div class="settings-card">
+            <h3 class="card-title">Apariencia</h3>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <div class="setting-name">Tema</div>
+                    <div class="setting-desc">Selecciona el modo visual de la aplicación</div>
+                </div>
+                <div class="theme-selector" id="themeSelector">
+                    <button type="button" class="theme-btn" data-theme="light">Claro</button>
+                    <button type="button" class="theme-btn" data-theme="dark">Oscuro</button>
+                    <button type="button" class="theme-btn" data-theme="system">Sistema</button>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <div class="setting-name">Color de acento</div>
+                    <div class="setting-desc">Color para botones y elementos activos</div>
+                </div>
+                <div class="accent-picker" id="accentPicker">
+                    <button type="button" class="accent-dot" data-color="#000000" style="background:#000000"></button>
+                    <button type="button" class="accent-dot accent-white" data-color="#ffffff"></button>
+                    <button type="button" class="accent-dot" data-color="#2563eb" style="background:#2563eb"></button>
+                    <button type="button" class="accent-dot" data-color="#7c3aed" style="background:#7c3aed"></button>
+                    <button type="button" class="accent-dot" data-color="#059669" style="background:#059669"></button>
+                    <button type="button" class="accent-dot" data-color="#dc2626" style="background:#dc2626"></button>
+                </div>
+            </div>
+
+            <div class="setting-row border-none">
+                <div class="setting-info">
+                    <div class="setting-name">Densidad</div>
+                    <div class="setting-desc">Ajusta el espaciado de la interfaz</div>
+                </div>
+                <div class="segment-control" id="densitySelector">
+                    <button type="button" class="segment-btn" data-density="compact">Compacto</button>
+                    <button type="button" class="segment-btn" data-density="default">Normal</button>
+                    <button type="button" class="segment-btn" data-density="comfortable">Amplio</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-footer-actions">
+            <button type="button" class="btn-secondary" id="btnResetSettings">Restablecer valores</button>
+            <button type="button" class="btn-primary" id="btnSaveSettings">Guardar cambios</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .settings-view-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding-bottom: 40px;
+    }
+
+    .settings-header {
+        margin-bottom: 24px;
+    }
+
+    .settings-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+    }
+
+    .setting-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--row-gap, 16px) 0;
+        border-bottom: 1px solid var(--border-color);
+        gap: 20px;
+    }
+
+    .border-none {
+        border-bottom: none !important;
+    }
+
+    .setting-name {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-primary);
+    }
+
+    .setting-desc {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 2px;
+    }
+
+    /* Selectores visuales */
+    .theme-selector,
+    .segment-control {
+        display: flex;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 4px;
+        gap: 4px;
+    }
+
+    .theme-btn,
+    .segment-btn {
+        border: none;
+        background: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        transition: 0.2s;
+    }
+
+    .theme-btn.active,
+    .segment-btn.active {
+        background: var(--accent-primary);
+        color: #fff;
+    }
+
+    .accent-picker {
+        display: flex;
+        gap: 10px;
+    }
+
+    .accent-dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .accent-white {
+        background: #ffffff !important;
+        border: 1px solid var(--border-color) !important;
+    }
+
+    .accent-dot.active {
+        border-color: var(--text-primary);
+        transform: scale(1.2);
+    }
+
+    .settings-footer-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+</style>

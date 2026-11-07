@@ -1,0 +1,241 @@
+<!-- Vista: Importar Plantillas -->
+<style>
+    .import-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding-bottom: 40px;
+    }
+
+    .import-header { margin-bottom: 32px; }
+
+    .import-content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .info-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        gap: 16px;
+    }
+
+    .info-icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        background: var(--accent-light);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-primary);
+    }
+
+    .info-content h3 {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+    }
+
+    .info-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .info-content li {
+        font-size: 13px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+
+    .info-content strong {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .upload-area {
+        border: 2px dashed var(--border-color);
+        border-radius: 12px;
+        padding: 48px 24px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .upload-area:hover,
+    .upload-area.dragging {
+        border-color: var(--accent-primary);
+        background: var(--accent-light);
+    }
+
+    .upload-icon { color: var(--text-muted); margin-bottom: 16px; }
+    .upload-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+    .upload-text  { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+    .upload-formats { font-size: 12px; color: var(--text-muted); }
+    .btn-select-file { margin-top: 12px; }
+
+    .file-info {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .file-details { display: flex; align-items: center; gap: 12px; }
+    .file-details svg { color: var(--accent-primary); }
+    .file-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+    .file-size { font-size: 12px; color: var(--text-muted); }
+
+    .btn-remove-file {
+        width: 32px; height: 32px;
+        background: transparent; border: none; border-radius: 6px;
+        color: var(--text-muted); cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s;
+    }
+    .btn-remove-file:hover { background: var(--bg-hover); color: var(--danger); }
+
+    .preview-section {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+    }
+    .preview-section h3 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+    .preview-count { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; }
+    .preview-list {
+        display: flex; flex-direction: column; gap: 8px;
+        max-height: 200px; overflow-y: auto;
+    }
+    .preview-item {
+        padding: 12px;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 13px;
+    }
+    .preview-item-title { font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .preview-item-shortcode { font-size: 12px; color: var(--text-muted); font-family: 'Courier New', monospace; }
+
+    .import-actions {
+        display: flex; gap: 12px;
+        justify-content: flex-end;
+        padding-top: 8px;
+    }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .example-section {
+        text-align: center;
+        padding-top: 16px;
+        border-top: 1px solid var(--border-color);
+    }
+    .example-link {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-size: 13px; color: var(--accent-primary);
+        text-decoration: none; font-weight: 500;
+        transition: all 0.2s;
+    }
+    .example-link:hover { text-decoration: underline; }
+</style>
+
+<div class="import-container">
+    <div class="import-header">
+        <h1 class="view-title">Importar plantillas</h1>
+        <p class="view-subtitle">Carga tus plantillas desde un archivo CSV o JSON</p>
+    </div>
+
+    <div class="import-content">
+        <div class="info-card">
+            <div class="info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="info-content">
+                <h3>Formatos aceptados</h3>
+                <ul>
+                    <li><strong>CSV:</strong> Columnas: title, shortcode, content, tags (separadas por punto y coma).</li>
+                    <li><strong>JSON:</strong> Array de objetos con los campos: title, shortcode, content, tags.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <path d="M24 32V16m0 0l-8 8m8-8l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M40 32v8a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="upload-title">Arrastra tu archivo aquí</h3>
+            <p class="upload-text">o haz clic para seleccionar</p>
+            <button class="btn-secondary btn-select-file" id="btnSelectFile" type="button">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 12V4m0 0L5 7m3-3l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 11v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Seleccionar archivo
+            </button>
+            <p class="upload-formats">CSV, JSON (máx. 5MB)</p>
+            <input type="file" id="fileInput" accept=".csv,.json" style="display:none;">
+        </div>
+
+        <div class="file-info" id="fileInfo" style="display:none;">
+            <div class="file-details">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M6 2h8l4 4v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M14 2v4h4" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <div>
+                    <div class="file-name" id="fileName">archivo.csv</div>
+                    <div class="file-size" id="fileSize">1.2 KB</div>
+                </div>
+            </div>
+            <button class="btn-remove-file" id="btnRemoveFile" type="button">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="preview-section" id="previewSection" style="display:none;">
+            <h3>Vista previa</h3>
+            <div class="preview-count" id="previewCount">Se importarán 0 plantillas</div>
+            <div class="preview-list" id="previewList"></div>
+        </div>
+
+        <div class="import-actions">
+            <button class="btn-secondary" id="btnCancelImport" type="button">Cancelar</button>
+            <button class="btn-primary" id="btnTriggerImport" type="button" disabled>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 12V4m0 0L5 7m3-3l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 11v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Importar plantillas
+            </button>
+        </div>
+
+        <div class="example-section">
+            <a href="#" class="example-link" id="downloadExample">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2v8m0 0l3-3m-3 3L5 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 11v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Descargar archivo de ejemplo (CSV)
+            </a>
+        </div>
+    </div>
+</div>

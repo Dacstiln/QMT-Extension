@@ -1,0 +1,613 @@
+<!-- Vista: Mis Plantillas -->
+<div class="mt-layout">
+
+    <!-- Columna principal: título + grid -->
+    <div class="mt-main">
+        <div class="mt-page-header">
+            <h1 class="view-title">Mis plantillas</h1>
+            <p class="view-subtitle">Gestiona y organiza todas tus plantillas de correo</p>
+        </div>
+
+        <!-- Grid de plantillas -->
+        <div class="templates-grid" id="templatesContainer">
+            <!-- Se carga dinámicamente desde templates.js -->
+        </div>
+    </div>
+
+    <!-- Sidebar derecho -->
+    <aside class="mt-sidebar">
+
+        <!-- Importar -->
+        <div class="view-actions">
+            <button class="btn-secondary" id="btnImportTemplates">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 11V3m0 0L5 6m3-3l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M14 10v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-3" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" />
+                </svg>
+                Importar
+            </button>
+        </div>
+
+        <!-- Buscar -->
+        <div class="mt-sidebar-card">
+            <div class="mt-sidebar-card-header">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M7 13A6 6 0 1 0 7 1a6 6 0 0 0 0 12ZM13 13l2 2" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Buscar
+            </div>
+            <input type="text" class="mt-search-input" id="filterSearch" placeholder="Buscar plantillas...">
+        </div>
+
+        <!-- Ordenar -->
+        <div class="mt-sidebar-card">
+            <div class="mt-sidebar-card-header">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                Ordenar
+            </div>
+            <div class="mt-sort-group">
+                <label class="mt-sort-label">Por</label>
+                <select class="mt-select" id="sortBy">
+                    <option value="date">Fecha</option>
+                    <option value="title">Título</option>
+                    <option value="creator">Nombre del creador</option>
+                </select>
+            </div>
+            <div class="mt-sort-group" style="margin-top:8px">
+                <label class="mt-sort-label">Orden</label>
+                <select class="mt-select" id="sortOrder">
+                    <option value="desc">Descendente</option>
+                    <option value="asc">Ascendente</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Acciones de selección -->
+        <div class="mt-sidebar-card">
+            <div class="mt-sidebar-card-header">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 8h12M2 4h12M2 12h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                Acciones
+                <span class="mt-selected-badge" id="selectedCountBadge">0</span>
+            </div>
+
+            <button class="mt-action-btn" id="btnManageTags" disabled>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 2h5.5l6.5 6.5-5.5 5.5L2 7.5V2z" stroke="currentColor" stroke-width="1.5"
+                        stroke-linejoin="round" />
+                    <circle cx="5" cy="5" r="1" fill="currentColor" />
+                </svg>
+                Etiquetas
+            </button>
+
+            <button class="mt-action-btn danger" id="btnDeleteSelected" disabled>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path
+                        d="M3 4h8M5 4V3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1M5 7v4M9 7v4M4 4v7a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V4"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                Eliminar plantilla
+            </button>
+        </div>
+
+    </aside>
+</div>
+
+<!-- Modal de etiquetas -->
+<div class="mt-modal-overlay" id="tagsModalOverlay">
+    <div class="mt-modal">
+        <div class="mt-modal-header">
+            <h3>Gestionar etiquetas</h3>
+            <button class="mt-modal-close" id="closeTagsModal">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+        <p class="mt-modal-subtitle" id="tagsModalSubtitle">Selecciona o crea etiquetas para las plantillas
+            seleccionadas</p>
+        <div class="mt-tags-input-row">
+            <input type="text" class="mt-tags-search" id="modalTagInput"
+                placeholder="Escribe una etiqueta y presiona Enter para crear...">
+        </div>
+        <div class="mt-tags-list" id="modalTagsList"></div>
+        <div class="mt-modal-footer">
+            <button class="mt-btn-secondary" id="cancelTagsModal">Cancelar</button>
+            <button class="mt-btn-primary" id="applyTagsModal">Aplicar</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .mt-layout {
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+    }
+
+    .mt-main {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .mt-page-header {
+        margin-bottom: 22px;
+    }
+
+    .view-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 3px;
+    }
+
+    .view-subtitle {
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    .mt-sidebar {
+        width: 215px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: sticky;
+        top: 0;
+    }
+
+    .mt-sidebar-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 14px;
+    }
+
+    .mt-sidebar-card-header {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+    }
+
+    .mt-search-input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 7px;
+        font-size: 13px;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        box-sizing: border-box;
+        transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .mt-search-input:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 2px var(--accent-light);
+    }
+
+    .mt-sort-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mt-sort-label {
+        font-size: 12px;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        min-width: 30px;
+    }
+
+    .mt-select {
+        flex: 1;
+        padding: 6px 8px;
+        border: 1px solid var(--border-color);
+        border-radius: 7px;
+        font-size: 12px;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        cursor: pointer;
+        min-width: 0;
+    }
+
+    .mt-select:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+    }
+
+    .mt-selected-badge {
+        margin-left: auto;
+        background: var(--accent-primary);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 999px;
+        display: none;
+    }
+
+    .mt-selected-badge.visible {
+        display: inline-block;
+    }
+
+    .mt-action-btn {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 7px;
+        background: var(--bg-primary);
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-bottom: 6px;
+        text-align: left;
+        box-sizing: border-box;
+    }
+
+    .mt-action-btn:last-child {
+        margin-bottom: 0;
+    }
+
+    .mt-action-btn:not(:disabled):hover {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        border-color: var(--border-hover);
+    }
+
+    .mt-action-btn:disabled {
+        opacity: 0.38;
+        cursor: not-allowed;
+    }
+
+    .mt-action-btn.danger:not(:disabled):hover {
+        background: rgba(239, 68, 68, 0.08);
+        color: var(--danger);
+        border-color: var(--danger);
+    }
+
+    /* Grid de plantillas */
+    .templates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 14px;
+    }
+
+    .template-card {
+        background: var(--bg-primary);
+        border: 1.5px solid var(--border-color);
+        border-radius: 12px;
+        padding: 14px;
+        cursor: pointer;
+        transition: all 0.18s;
+        position: relative;
+        user-select: none;
+    }
+
+    .template-card:hover {
+        border-color: var(--border-hover);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-1px);
+    }
+
+    .template-card.selected {
+        border-color: var(--accent-primary);
+        background: var(--accent-light);
+    }
+
+    .template-card-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        margin-bottom: 9px;
+    }
+
+    .template-select-check {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 15px;
+        height: 15px;
+        border: 1.5px solid var(--border-color);
+        border-radius: 4px;
+        background: var(--bg-primary);
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-top: 2px;
+        transition: all 0.15s;
+        position: relative;
+    }
+
+    .template-select-check:checked {
+        background: var(--accent-primary);
+        border-color: var(--accent-primary);
+    }
+
+    .template-select-check:checked::after {
+        content: '';
+        position: absolute;
+        left: 3px;
+        top: 1px;
+        width: 4px;
+        height: 7px;
+        border: 2px solid #fff;
+        border-top: none;
+        border-left: none;
+        transform: rotate(45deg);
+    }
+
+    .template-card-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .template-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .template-shortcode-pill {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--text-muted);
+        background: var(--bg-secondary);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        border: 1px solid var(--border-color);
+    }
+
+    .template-preview {
+        font-size: 12px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    .template-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .template-tags {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        flex: 1;
+    }
+
+    .tag {
+        font-size: 10px;
+        padding: 2px 6px;
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        border-radius: 4px;
+        font-weight: 500;
+        border: 1px solid var(--border-color);
+    }
+
+    .template-date {
+        font-size: 11px;
+        color: var(--text-muted);
+        white-space: nowrap;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--text-muted);
+        grid-column: 1 / -1;
+    }
+
+    .empty-state svg {
+        margin-bottom: 14px;
+        color: var(--border-color);
+    }
+
+    .empty-state h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 6px;
+    }
+
+    .empty-state p {
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 18px;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        background: var(--accent-primary);
+        color: #ffffff;
+        transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+        background: var(--accent-hover);
+    }
+
+    /* Modal */
+    .mt-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mt-modal-overlay.open {
+        display: flex;
+    }
+
+    .mt-modal {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 22px;
+        width: 360px;
+        max-width: 90vw;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .mt-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+    }
+
+    .mt-modal-header h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    .mt-modal-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text-muted);
+        padding: 4px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+    }
+
+    .mt-modal-close:hover {
+        color: var(--text-primary);
+        background: var(--bg-secondary);
+    }
+
+    .mt-modal-subtitle {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 14px;
+    }
+
+    .mt-tags-input-row {
+        margin-bottom: 10px;
+    }
+
+    .mt-tags-search {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 7px;
+        font-size: 13px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        box-sizing: border-box;
+    }
+
+    .mt-tags-search:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 2px var(--accent-light);
+    }
+
+    .mt-tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        min-height: 36px;
+        margin-bottom: 16px;
+    }
+
+    .mt-tag-option {
+        padding: 5px 10px;
+        border: 1.5px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        transition: all 0.15s;
+    }
+
+    .mt-tag-option:hover {
+        border-color: var(--accent-primary);
+        color: var(--text-primary);
+    }
+
+    .mt-tag-option.active {
+        background: var(--accent-primary);
+        color: #fff;
+        border-color: var(--accent-primary);
+    }
+
+    .mt-modal-footer {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+
+    .mt-btn-primary {
+        padding: 8px 16px;
+        background: var(--accent-primary);
+        color: #fff;
+        border: none;
+        border-radius: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .mt-btn-primary:hover {
+        background: var(--accent-hover);
+    }
+
+    .mt-btn-secondary {
+        padding: 8px 16px;
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 7px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .mt-btn-secondary:hover {
+        background: var(--bg-tertiary);
+    }
+</style>

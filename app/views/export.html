@@ -1,0 +1,97 @@
+<!-- Vista: Exportar Plantillas -->
+<style>
+    .export-container { max-width: 800px; margin: 0 auto; }
+    .export-header { margin-bottom: 32px; }
+    .export-content { display: flex; flex-direction: column; gap: 24px; }
+
+    .templates-list {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+    }
+    .templates-list h3 { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
+
+    .select-all {
+        display: flex; align-items: center; gap: 8px;
+        margin-bottom: 16px; padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .select-all input[type="checkbox"] { width: 16px; height: 16px; }
+    .select-all label { font-size: 14px; color: var(--text-primary); cursor: pointer; }
+
+    .templates-items { max-height: 300px; overflow-y: auto; }
+
+    .template-item {
+        display: flex; align-items: center; gap: 12px;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px; margin-bottom: 8px;
+        background: var(--bg-primary);
+        transition: all 0.2s ease;
+    }
+    .template-item:hover { background: var(--bg-secondary); border-color: var(--accent-color); }
+    .template-item input[type="checkbox"] { width: 16px; height: 16px; margin: 0; flex-shrink: 0; }
+
+    .template-info { flex: 1; }
+    .template-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; }
+    .template-shortcode { font-size: 12px; color: var(--text-muted); font-family: 'Courier New', monospace; }
+
+    .format-selection {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+    }
+    .format-selection h3 { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; }
+    .format-options { display: flex; gap: 16px; justify-content: center; }
+    .format-option { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-primary); }
+
+    .export-actions { display: flex; gap: 12px; justify-content: flex-end; padding-top: 8px; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+</style>
+
+<div class="export-container">
+    <div class="export-header">
+        <h1 class="view-title">Exportar plantillas</h1>
+        <p class="view-subtitle">Descarga tus plantillas en formato JSON o CSV</p>
+    </div>
+
+    <div class="export-content">
+        <div class="templates-list" id="templatesList">
+            <h3>Selecciona las plantillas a exportar</h3>
+            <div class="select-all">
+                <input type="checkbox" id="selectAll">
+                <label for="selectAll">Seleccionar todas</label>
+            </div>
+            <div class="templates-items" id="templatesItems">
+                <p style="padding:20px; color:var(--text-muted);">Cargando plantillas…</p>
+            </div>
+        </div>
+
+        <div class="format-selection">
+            <h3>Formato de exportación</h3>
+            <div class="format-options">
+                <label class="format-option">
+                    <input type="radio" name="exportFormat" value="json" checked>
+                    <span>JSON</span>
+                </label>
+                <label class="format-option">
+                    <input type="radio" name="exportFormat" value="csv">
+                    <span>CSV</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="export-actions">
+            <button class="btn-secondary" id="btnCancelExport" type="button">Cancelar</button>
+            <button class="btn-primary" id="btnStartExport" type="button" disabled>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2v8m0 0l3-3m-3 3L5 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 11v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Exportar plantillas
+            </button>
+        </div>
+    </div>
+</div>

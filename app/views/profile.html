@@ -1,0 +1,442 @@
+<div class="profile-container">
+    <div class="profile-header">
+        <h1 class="view-title">Mi perfil</h1>
+        <p class="view-subtitle">Gestiona tu información personal y preferencias de cuenta</p>
+    </div>
+
+    <div class="profile-content">
+
+        <!-- Foto de perfil -->
+        <div class="settings-card">
+            <h3 class="card-title">Foto de perfil</h3>
+            <div class="avatar-row">
+                <div class="avatar-wrapper">
+                    <img id="profileAvatarImg"
+                        src="https://ui-avatars.com/api/?name=U&background=000&color=fff&size=128"
+                        alt="Foto de perfil" class="profile-avatar">
+                    <button class="avatar-badge" id="btnEditAvatar" title="Cambiar foto">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M8 1.5L10.5 4L4 10.5H1.5V8L8 1.5Z" stroke="currentColor" stroke-width="1.4"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <input type="file" id="avatarFileInput" accept="image/*" style="display:none">
+                </div>
+                <div class="avatar-details">
+                    <div class="avatar-name" id="profileNameDisplay">—</div>
+                    <div class="avatar-email" id="profileEmailDisplay">—</div>
+                    <span class="profile-role-badge" id="profileRoleBadge" style="display:none"></span>
+                    <div class="avatar-actions">
+                        <button class="btn-secondary btn-sm" id="btnUploadAvatar">Subir imagen</button>
+                        <button class="btn-secondary btn-sm btn-danger-soft" id="btnRemoveAvatar">Eliminar foto</button>
+                    </div>
+                    <p class="avatar-hint">JPG, PNG o GIF · Máximo 2 MB</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información personal -->
+        <div class="settings-card">
+            <h3 class="card-title">Información personal</h3>
+
+            <div class="profile-field" id="fieldName">
+                <div class="field-row">
+                    <div class="setting-info">
+                        <div class="setting-name">Nombre completo</div>
+                        <div class="setting-desc">El nombre que se mostrará en la aplicación</div>
+                    </div>
+                    <div class="field-value-wrap">
+                        <span class="field-value" id="nameValue">—</span>
+                        <button class="btn-field-edit" id="btnEditName">Editar</button>
+                    </div>
+                </div>
+                <div class="field-form hidden" id="nameForm">
+                    <input type="text" class="form-input-large" id="nameInput" placeholder="Tu nombre completo">
+                    <div class="field-form-actions">
+                        <button class="btn-secondary btn-sm" id="btnCancelName">Cancelar</button>
+                        <button class="btn-primary btn-sm" id="btnSaveName">Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-field profile-field--last" id="fieldEmail">
+                <div class="field-row">
+                    <div class="setting-info">
+                        <div class="setting-name">Correo electrónico</div>
+                        <div class="setting-desc">Tu dirección de correo para iniciar sesión</div>
+                    </div>
+                    <div class="field-value-wrap">
+                        <span class="field-value" id="emailValue">—</span>
+                        <span class="badge-verified">Verificado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seguridad -->
+        <div class="settings-card">
+            <h3 class="card-title">Seguridad</h3>
+            <div class="profile-field profile-field--last" id="fieldPassword">
+                <div class="field-row">
+                    <div class="setting-info">
+                        <div class="setting-name">Contraseña</div>
+                        <div class="setting-desc" id="passwordLastChange">No disponible</div>
+                    </div>
+                    <div class="field-value-wrap">
+                        <span class="field-value field-password-dots">••••••••••••</span>
+                        <button class="btn-field-edit" id="btnEditPassword">Cambiar</button>
+                    </div>
+                </div>
+                <div class="field-form hidden" id="passwordForm">
+                    <div class="password-field-group mb-3">
+                        <label class="field-label">Nueva contraseña</label>
+                        <div class="password-wrap">
+                            <input type="password" class="form-input-large" id="newPasswordInput"
+                                placeholder="Mínimo 8 caracteres">
+                            <button class="btn-eye" data-target="newPasswordInput" type="button">👁️</button>
+                        </div>
+                    </div>
+                    <div class="field-form-actions">
+                        <button class="btn-secondary btn-sm" id="btnCancelPassword">Cancelar</button>
+                        <button class="btn-primary btn-sm" id="btnSavePassword">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="settings-card">
+            <h3 class="card-title">Estadísticas de uso</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="statTemplates">—</div>
+                    <div class="stat-label">Plantillas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="statInsertions">—</div>
+                    <div class="stat-label">Compartidas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="statTags">—</div>
+                    <div class="stat-label">Etiquetas</div>
+                </div>
+                <div class="stat-item stat-item--last">
+                    <div class="stat-value" id="statJoinDate">—</div>
+                    <div class="stat-label">Miembro desde</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cuenta -->
+        <div class="settings-card danger-card">
+            <h3 class="card-title danger-title">Cuenta</h3>
+            <div class="setting-row setting-row--last">
+                <div class="setting-info">
+                    <div class="setting-name" style="color: var(--danger, #ef4444)">Eliminar cuenta</div>
+                    <div class="setting-desc">Elimina permanentemente tu cuenta y todos tus datos.</div>
+                </div>
+                <button class="btn-danger" id="btnDeleteAccount">Eliminar mi cuenta</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="deleteAccountModal" style="display:none">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>¿Eliminar tu cuenta?</h3>
+            <button class="modal-close" id="btnModalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px">
+                Esta acción es <strong>irreversible</strong>. Escribe <strong>ELIMINAR</strong> para confirmar.
+            </p>
+            <input type="text" class="form-input" id="deleteConfirmInput" placeholder="ELIMINAR">
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" id="btnCancelDelete">Cancelar</button>
+            <button class="btn-danger" id="btnConfirmDelete" disabled>Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding-bottom: 40px;
+    }
+
+    .profile-header {
+        margin-bottom: 28px;
+    }
+
+    .settings-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 22px 24px;
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0 0 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+        letter-spacing: 0.01em;
+    }
+
+    .setting-name {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-primary);
+    }
+
+    .setting-desc {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 3px;
+        line-height: 1.4;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    /* Avatar */
+    .avatar-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .profile-avatar {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--border-color);
+        background: var(--bg-primary);
+    }
+
+    .avatar-wrapper {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .avatar-badge {
+        position: absolute;
+        bottom: 1px;
+        right: 1px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--accent-primary, #000);
+        color: #fff;
+        border: 2px solid var(--bg-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 0;
+        transition: opacity 0.2s;
+    }
+    .avatar-badge:hover { opacity: 0.8; }
+
+    .avatar-details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .avatar-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 2px;
+    }
+
+    .avatar-email {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+    }
+
+    .profile-role-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 20px;
+        background: var(--accent-primary, #000);
+        color: #fff;
+        margin-bottom: 10px;
+        text-transform: capitalize;
+    }
+
+    .avatar-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .avatar-hint {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin: 8px 0 0;
+    }
+
+    /* Fields */
+    .profile-field {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .profile-field--last {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .field-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    .field-value-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .field-value {
+        font-size: 13px;
+        color: var(--text-secondary);
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .field-password-dots {
+        letter-spacing: 2px;
+        color: var(--text-muted);
+    }
+
+    .field-form {
+        margin-top: 14px;
+        padding: 16px;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+    }
+
+    .field-label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 6px;
+    }
+
+    .mb-3 { margin-bottom: 12px; }
+
+    .password-wrap {
+        position: relative;
+    }
+
+    .btn-eye {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text-muted);
+        font-size: 15px;
+        padding: 0;
+        line-height: 1;
+    }
+
+    .field-form-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 12px;
+    }
+
+    /* Badge verificado */
+    .badge-verified {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 20px;
+        background: #dcfce7;
+        color: #16a34a;
+        flex-shrink: 0;
+    }
+
+    /* Stats */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        padding-top: 4px;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 16px 8px;
+        border-right: 1px solid var(--border-color);
+    }
+
+    .stat-item--last {
+        border-right: none;
+    }
+
+    .stat-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1.2;
+    }
+
+    .stat-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 4px;
+    }
+
+    /* Danger */
+    .danger-card {
+        border-color: #fecaca;
+    }
+
+    .danger-title {
+        color: var(--danger, #ef4444) !important;
+    }
+
+    .setting-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    .setting-row--last {
+        border-bottom: none;
+    }
+
+    @media (max-width: 480px) {
+        .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        .stat-item:nth-child(2) { border-right: none; }
+        .stat-item:nth-child(3) { border-right: 1px solid var(--border-color); }
+        .field-row { flex-direction: column; align-items: flex-start; }
+        .field-value-wrap { width: 100%; justify-content: space-between; }
+    }
+</style>

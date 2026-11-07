@@ -1,0 +1,265 @@
+    /* Fuente global y animación de entrada */
+    body {
+        font-family: 'Inter', sans-serif;
+        padding: 0;
+        width: 320px;
+        min-height: auto;
+        background: #ffffff;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Contenedor principal con fondo blanco */
+    .main-container {
+        background: #ffffff;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 20px 20px;
+        margin: 0;
+    }
+
+    /* Header con logo */
+    .logo-container {
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .logo-container img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* ---- PANTALLA INICIAL ---- */
+
+    /* Texto: "Inicia sesión para tener acceso a tus plantillas" */
+    .label-login {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+        letter-spacing: -0.3px;
+        margin-bottom: 12px;
+    }
+
+    /* Botón: "Inicia sesión" */
+    .btn-login {
+        font-size: 15px;
+        font-weight: 600;
+        padding: 14px 24px;
+        border-radius: 10px;
+        border: none;
+        background: #2563eb;
+        color: #ffffff;
+        letter-spacing: -0.2px;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-login:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-login:active {
+        transform: translateY(0);
+    }
+
+    .btn-login:focus {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Divisor elegante */
+    .divider-container {
+        margin: 24px 0;
+        position: relative;
+    }
+
+    .divider-line {
+        height: 1px;
+        background: #e5e7eb;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+    }
+
+    /* Texto: "¿No tienes una cuenta todavía?" */
+    .label-signup {
+        font-size: 13px;
+        font-weight: 400;
+        color: #6b7280;
+        margin-bottom: 8px;
+    }
+
+    /* Link: "Crea una cuenta…" */
+    .link-signup {
+        font-size: 14px;
+        font-weight: 500;
+        color: #2563eb;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        display: inline-block;
+    }
+
+    .link-signup:hover {
+        color: #1d4ed8;
+        text-decoration: underline;
+        transform: translateY(-1px);
+    }
+
+    .link-signup:focus {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+    }
+
+    /* ---- FORMULARIO DE LOGIN ---- */
+
+    /*.login-form {
+        display: none;
+    }*/
+
+    .form-label-login {
+        font-size: 13px;
+        font-weight: 500;
+        color: #1a1a1a;
+        margin-bottom: 6px;
+        display: block;
+        text-align: left;
+    }
+
+    .form-control-login {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: #ffffff;
+        transition: all 0.2s ease;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .form-control-login:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-group-login {
+        margin-bottom: 16px;
+    }
+
+    .password-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+    }
+
+    .forgot-password {
+        font-size: 12px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+    .btn-signin {
+        width: 100%;
+        padding: 12px 24px;
+        font-size: 15px;
+        font-weight: 600;
+        border-radius: 10px;
+        border: none;
+        background: #2563eb;
+        color: #ffffff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-top: 8px;
+    }
+
+    .btn-signin:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+    }
+
+    .create-account-section {
+        text-align: center;
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .create-account-text {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 6px;
+    }
+
+    .create-account-link {
+        font-size: 14px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .create-account-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Ocultar/mostrar pantallas */
+    .hidden {
+        display: none !important;
+    }
+
+    .visible {
+        display: block !important;
+    }
+
+    /* Override de Bootstrap para mejor integración */
+    .btn-primary {
+        --bs-btn-bg: #2563eb;
+        --bs-btn-border-color: #2563eb;
+        --bs-btn-hover-bg: #1d4ed8;
+        --bs-btn-hover-border-color: #1d4ed8;
+        --bs-btn-active-bg: #1e40af;
+        --bs-btn-active-border-color: #1e40af;
+    }
+
+    /* Espaciado optimizado */
+    .content-section {
+        margin-top: 0;
+    }
+
+    .signup-section {
+        margin-top: 24px;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .user-info-box {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+    }

@@ -1,0 +1,91 @@
+<!-- Vista: Panel de Administración -->
+<div class="admin-layout">
+
+    <!-- Header de la vista -->
+    <div class="admin-page-header">
+        <div>
+            <h1 class="view-title">Panel de administración</h1>
+            <p class="view-subtitle">Gestiona usuarios, plantillas y permisos</p>
+        </div>
+        <button class="btn-primary" id="btnAdminAssignAll">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Asignar plantilla
+        </button>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="admin-stats-bar" id="adminStats">
+        <span class="admin-loading">Cargando...</span>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="admin-search-bar">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M7 13A6 6 0 1 0 7 1a6 6 0 0 0 0 12ZM13 13l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="adminSearch" placeholder="Buscar por usuario, email o nombre de plantilla...">
+    </div>
+
+    <!-- Grid de usuarios con plantillas -->
+    <div class="admin-users-grid" id="adminUsersGrid">
+        <span class="admin-loading">Cargando...</span>
+    </div>
+
+</div>
+
+<!-- ─── Modal: Editar plantilla ────────────────────────────────────────────── -->
+<div class="admin-modal-overlay" id="adminEditModal">
+    <div class="admin-modal">
+        <div class="admin-modal-header">
+            <h2>Editar plantilla</h2>
+            <button class="admin-modal-close" id="btnAdminEditCancel">✕</button>
+        </div>
+        <div class="admin-modal-body">
+            <label class="admin-label">Nombre</label>
+            <input type="text" id="adminEditName" class="admin-input" placeholder="Nombre de la plantilla">
+
+            <label class="admin-label">Shortcode</label>
+            <input type="text" id="adminEditShortcode" class="admin-input" placeholder="/shortcode">
+
+            <label class="admin-label">Contenido (HTML)</label>
+            <textarea id="adminEditContent" class="admin-textarea" rows="8"
+                placeholder="Contenido HTML de la plantilla..."></textarea>
+        </div>
+        <div class="admin-modal-footer">
+            <button class="btn-secondary" id="btnAdminEditCancel2">Cancelar</button>
+            <button class="btn-primary" id="btnAdminEditSave">Guardar cambios</button>
+        </div>
+    </div>
+</div>
+
+<!-- ─── Modal: Asignar plantilla ───────────────────────────────────────────── -->
+<div class="admin-modal-overlay" id="adminAssignModal">
+    <div class="admin-modal">
+        <div class="admin-modal-header">
+            <h2>Asignar plantilla</h2>
+            <button class="admin-modal-close" id="btnAssignCancel">✕</button>
+        </div>
+        <div class="admin-modal-body">
+            <label class="admin-label">Destinatario</label>
+            <select id="assignUserSelect" class="admin-input">
+                <option value="">── Todos los usuarios ──</option>
+            </select>
+
+            <label class="admin-label">Nombre de la plantilla</label>
+            <input type="text" id="assignName" class="admin-input" placeholder="Ej: Presentación comercial">
+
+            <label class="admin-label">Shortcode <span class="admin-optional">(opcional)</span></label>
+            <input type="text" id="assignShortcode" class="admin-input" placeholder="Ej: /presentacion">
+
+            <label class="admin-label">Contenido (HTML o texto)</label>
+            <textarea id="assignContent" class="admin-textarea" rows="8"
+                placeholder="Escribe el contenido de la plantilla que quieres asignar..."></textarea>
+        </div>
+        <div class="admin-modal-footer">
+            <button class="btn-secondary" id="btnAssignCancel2">Cancelar</button>
+            <button class="btn-primary" id="btnAssignSave">Asignar plantilla</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+/* Boton de inyectar en Gmail */
+.qmt-inject-button-container {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 2000;
+    display: inline-flex;
+}
+
+.qmt-inject-button {
+    background: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    padding: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #202124;
+    font-size: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.qmt-inject-button:hover {
+    background: #f1f3f4;
+    border-color: #5f6368;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+}
+
+.qmt-inject-button:active {
+    background: #e8eaed;
+}
+
+.qmt-button-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+/* Menú desplegable de plantillas */
+.qmt-template-menu {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    left: auto;
+    width: 260px;
+    background: white;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    z-index: 9999;
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.qmt-menu-header {
+    padding: 12px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #202124;
+    border-bottom: 1px solid #e8eaed;
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    border-radius: 10px 10px 0 0;
+}
+
+.qmt-template-item {
+    padding: 11px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f3f4;
+    transition: background 0.12s ease;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.qmt-template-item:last-child {
+    border-bottom: none;
+}
+
+.qmt-template-item:hover {
+    background: #f8f9fa;
+}
+
+.qmt-template-item strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #202124;
+    font-size: 13px;
+}
+
+.qmt-template-item small {
+    color: #5f6368;
+    font-size: 11px;
+}
+
+.qmt-item-empty {
+    padding: 20px 14px;
+    text-align: center;
+    color: #5f6368;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.hidden {
+    display: none !important;
+}

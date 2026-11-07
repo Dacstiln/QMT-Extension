@@ -1,0 +1,311 @@
+<div class="editor-container">
+    <div class="editor-main">
+        <div class="editor-header">
+            <button class="btn-back" id="btnBackToTemplates">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M12 4L6 10l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="editor-title" id="editorTitle">Crear plantilla</h1>
+        </div>
+
+        <div class="editor-form">
+            <div class="form-section">
+                <label class="form-label" for="templateName">Nombre de la plantilla</label>
+                <input type="text" class="form-input-large" id="templateName" placeholder="Ej: Bienvenida a nuevos clientes">
+            </div>
+
+            <div class="form-section">
+                <label class="form-label" for="templateShortcut">
+                    Atajo de plantilla (Opcional)
+                    <span class="form-hint">Escribe este atajo para insertar rápidamente</span>
+                </label>
+                <input type="text" class="form-input-large" id="templateShortcut" placeholder="Ej: bienvenida">
+            </div>
+
+            <div class="form-section" id="assignmentSection">
+                <label class="form-label">
+                    Asignación de plantilla
+                    <span class="form-hint">Define quién recibirá esta plantilla al guardar</span>
+                </label>
+                <div class="assignment-options">
+                    <label class="assignment-radio">
+                        <input type="radio" name="assignmentType" value="self" checked>
+                        <span class="assignment-radio-label">
+                            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M2 14a6 6 0 0 1 12 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            Solo para mí
+                        </span>
+                    </label>
+                    <label class="assignment-radio admin-only" id="assignRadioAllWrap">
+                        <input type="radio" name="assignmentType" value="all">
+                        <span class="assignment-radio-label">
+                            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <circle cx="5" cy="5" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                                <circle cx="11" cy="5" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M1 14a4 4 0 0 1 8 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M9 14a4 4 0 0 1 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            Todos los usuarios
+                        </span>
+                    </label>
+                    <label class="assignment-radio admin-only" id="assignRadioUserWrap">
+                        <input type="radio" name="assignmentType" value="user">
+                        <span class="assignment-radio-label">
+                            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 12l4-4 3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Usuario específico
+                        </span>
+                    </label>
+                </div>
+                <select class="form-input-large admin-only" id="assignSpecificUser" style="display:none; margin-top:8px;">
+                    <option value="">Selecciona un usuario...</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <div class="content-header">
+                    <label class="form-label">Contenido de la plantilla</label>
+                </div>
+
+                <div id="tb-outer">
+                    <div id="tb">
+                        <div class="tb-row">
+                            <button class="btn-t" title="Deshacer (Ctrl+Z)" data-action="undo">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12.5 8c-2.65 0-5.05 1-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z" />
+                                </svg>
+                            </button>
+                            <button class="btn-t" title="Rehacer (Ctrl+Y)" data-action="redo">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M18.4 10.6C16.55 9 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z" />
+                                </svg>
+                            </button>
+                            <div class="sep"></div>
+                            <div class="dd" id="dd-blk">
+                                <div class="dd-btn" id="dd-blk-t" data-action="toggle-dd" data-target="dd-blk">Párrafo</div>
+                                <div class="dd-menu" id="dd-blk-m">
+                                    <div class="dd-item" data-action="set-block" data-tag="p" data-label="Párrafo">Párrafo</div>
+                                    <div class="dd-item" data-action="set-block" data-tag="h1" data-label="Título 1" style="font-size:18px;font-weight:700">Título 1</div>
+                                    <div class="dd-item" data-action="set-block" data-tag="h2" data-label="Título 2" style="font-size:15px;font-weight:700">Título 2</div>
+                                    <div class="dd-item" data-action="set-block" data-tag="h3" data-label="Título 3" style="font-size:13px;font-weight:700">Título 3</div>
+                                    <div class="dd-item" data-action="set-block" data-tag="pre" data-label="Código" style="font-family:monospace;font-size:12px">Código</div>
+                                </div>
+                            </div>
+                            <div class="dd" id="dd-fnt">
+                                <div class="dd-btn" id="dd-fnt-t" style="width:148px" data-action="toggle-dd" data-target="dd-fnt">Sistema</div>
+                                <div class="dd-menu" id="dd-fnt-m" style="width:220px">
+                                    <div class="dd-item" data-action="set-font" data-font="Arial" data-label="Arial" style="font-family:Arial,sans-serif">Arial</div>
+                                    <div class="dd-item" data-action="set-font" data-font="Times New Roman" data-label="Times New Roman" style="font-family:'Times New Roman',serif">Times New Roman</div>
+                                    <div class="dd-item" data-action="set-font" data-font="Georgia" data-label="Georgia" style="font-family:Georgia,serif">Georgia</div>
+                                    <div class="dd-item" data-action="set-font" data-font="Verdana" data-label="Verdana" style="font-family:Verdana,sans-serif">Verdana</div>
+                                    <div class="dd-item" data-action="set-font" data-font="Tahoma" data-label="Tahoma" style="font-family:Tahoma,sans-serif">Tahoma</div>
+                                    <div class="dd-item" data-action="set-font" data-font="Trebuchet MS" data-label="Trebuchet MS" style="font-family:'Trebuchet MS',sans-serif">Trebuchet MS</div>
+                                    <div class="dd-item" data-action="set-font" data-font="Courier New" data-label="Courier New" style="font-family:'Courier New',monospace">Courier New</div>
+                                </div>
+                            </div>
+                            <div class="sz-wrap">
+                                <button class="sz-btn" data-action="adj-sz" data-delta="-1">−</button>
+                                <input class="sz-inp" id="sz-inp" type="text" inputmode="numeric" value="15">
+                                <button class="sz-btn" data-action="adj-sz" data-delta="1">+</button>
+                            </div>
+                            <div class="sep"></div>
+                            <button class="btn-t" id="bt-b" title="Negrita (Ctrl+B)" data-action="cmd" data-cmd="bold"><b style="font-size:15px">B</b></button>
+                            <button class="btn-t" id="bt-i" title="Cursiva (Ctrl+I)" data-action="cmd" data-cmd="italic"><i style="font-size:15px">I</i></button>
+                            <button class="btn-t" id="bt-u" title="Subrayado (Ctrl+U)" data-action="cmd" data-cmd="underline"><u style="font-size:14px">U</u></button>
+                            <button class="btn-t" id="bt-s" title="Tachado" data-action="cmd" data-cmd="strikeThrough"><s style="font-size:14px">S</s></button>
+                            <div class="sep"></div>
+                            <button class="btn-t" title="Alinear izquierda" data-action="cmd" data-cmd="justifyLeft"><svg viewBox="0 0 24 24"><path d="M15 15H3v2h12v-2zm0-8H3v2h12V7zM3 13h18v-2H3v2zm0 8h18v-2H3v2zM3 3v2h18V3H3z"/></svg></button>
+                            <button class="btn-t" title="Centrar" data-action="cmd" data-cmd="justifyCenter"><svg viewBox="0 0 24 24"><path d="M7 15v2h10v-2H7zm-4 6h18v-2H3v2zm0-8h18v-2H3v2zm4-6v2h10V7H7zM3 3v2h18V3H3z"/></svg></button>
+                            <button class="btn-t" title="Alinear derecha" data-action="cmd" data-cmd="justifyRight"><svg viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12V7H9v2zM3 3v2h18V3H3z"/></svg></button>
+                            <button class="btn-t" title="Justificar" data-action="cmd" data-cmd="justifyFull"><svg viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z"/></svg></button>
+                            <div class="sep"></div>
+                            <button class="btn-t" title="Lista con viñetas" data-action="cmd" data-cmd="insertUnorderedList"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+                            <button class="btn-t" title="Lista numerada" data-action="cmd" data-cmd="insertOrderedList"><svg viewBox="0 0 24 24"><path d="M10 6h11M10 12h11M10 18h11M4 6v.01M4 12v.01M4 18v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+                            <div class="sep"></div>
+                            <div class="pal-wrap" id="pal-fore">
+                                <button class="btn-t pal-btn" title="Color de texto" data-action="apply-col" data-type="fore">
+                                    <svg viewBox="0 0 24 24"><path d="M12 3L4 20h3l2-5h6l2 5h3L12 3zm-2 10l2-6 2 6H10z"/></svg>
+                                    <span class="pal-cur" data-color="#000000" style="background:#000000"></span>
+                                </button>
+                                <button class="btn-t pal-arr" data-action="toggle-pal" data-target="pal-fore">▾</button>
+                                <div class="pal-grid" id="pal-fore-grid"></div>
+                            </div>
+                            <div class="pal-wrap" id="pal-back">
+                                <button class="btn-t pal-btn" title="Color de fondo" data-action="apply-col" data-type="back">
+                                    <svg viewBox="0 0 24 24"><path d="M16.56 8.94L7.62 0 6.21 1.41l2.38 2.38-5.15 5.15a1.49 1.49 0 0 0 0 2.12l5.5 5.5c.29.29.68.44 1.06.44s.77-.15 1.06-.44l5.5-5.5c.59-.58.59-1.53 0-2.12zM5.21 10L10 5.21 14.79 10H5.21zM19 11.5s-2 2.17-2 3.5c0 1.1.9 2 2 2s2-.9 2-2c0-1.33-2-3.5-2-3.5z"/></svg>
+                                    <span class="pal-cur" data-color="#fbbf24" style="background:#fbbf24"></span>
+                                </button>
+                                <button class="btn-t pal-arr" data-action="toggle-pal" data-target="pal-back">▾</button>
+                                <div class="pal-grid" id="pal-back-grid"></div>
+                            </div>
+                            <div class="sep"></div>
+                            <button class="btn-t" title="Enlace" data-action="open-lnk"><svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg></button>
+                            <button class="btn-t" title="Imagen" data-action="trigger-img"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></button>
+                            <button class="btn-t" title="Tabla" data-action="open-ov" data-target="ov-tbl"><svg viewBox="0 0 24 24"><path d="M20 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 2v3H5V5h15zm-8 5h-7v-1h7v1zm0 4h-7v-1h7v1zm0 4h-7v-1h7v1zm8-8h-6v-1h6v1zm0 4h-6v-1h6v1zm0 4h-6v-1h6v1z"/></svg></button>
+                            <button class="btn-t" title="Código fuente" data-action="open-code"><svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="editor" contenteditable="true" spellcheck="true"></div>
+                <div class="wc-bar"><span id="word-count">0 palabras</span></div>
+            </div>
+
+            <div class="editor-footer">
+                <button class="btn-secondary" id="btnCancelEdit">Cancelar</button>
+                <button class="btn-primary" id="btnSaveTemplate">Guardar plantilla</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="editor-sidebar">
+        <!-- Etiquetas: siempre visible tanto en crear como en editar -->
+        <div class="sidebar-card">
+            <h3 class="sidebar-card-title">Etiquetas</h3>
+            <div class="tags-input-wrapper">
+                <input type="text" class="tags-input" id="tagsInput" placeholder="Escribe para buscar o crear...">
+                <div class="selected-tags" id="selectedTags"></div>
+            </div>
+        </div>
+
+        <!-- Metadata de plantilla: solo visible en modo EDITAR (controlado por editor.js) -->
+        <div class="sidebar-card" id="sidebarMetaCard" style="display:none;">
+            <!-- Relleno dinámicamente por renderTemplateMetadata() en editor.js -->
+        </div>
+
+        <!-- Acciones: solo visible en modo EDITAR (controlado por editor.js) -->
+        <div class="sidebar-card" id="sidebarActionsCard" style="display:none;">
+            <h3 class="sidebar-card-title">Acciones</h3>
+            <button class="sidebar-action-btn" id="btnDuplicateTemplate">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <rect x="3" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M5 3V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                Duplicar plantilla
+            </button>
+            <button class="sidebar-action-btn danger" id="btnDeleteTemplate">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 4h10M5 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1M6 7v5M10 7v5M4 4v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Eliminar plantilla
+            </button>
+        </div>
+    </div>
+</div>
+
+<input type="file" id="img-inp" accept="image/*" style="display:none">
+
+<div class="ov" id="ov-code">
+    <div class="modal" id="code-modal">
+        <div class="mh">
+            <h2>Source Code</h2><button class="mx" data-action="close-ov" data-target="ov-code">✕</button>
+        </div>
+        <textarea id="html-ta" spellcheck="false"></textarea>
+        <div class="mf">
+            <button class="btn-m btn-sec" data-action="close-ov" data-target="ov-code">Cancelar</button>
+            <button class="btn-m btn-pri" data-action="save-code">Aplicar cambios</button>
+        </div>
+    </div>
+</div>
+
+<div class="ov" id="ov-tbl">
+    <div class="modal" id="tbl-modal">
+        <div class="mh">
+            <h2>Insertar tabla</h2><button class="mx" data-action="close-ov" data-target="ov-tbl">✕</button>
+        </div>
+        <div class="mb">
+            <div class="form-grid">
+                <div class="ff"><label>Filas</label><input type="number" id="tb-r" value="3" min="1" max="30"></div>
+                <div class="ff"><label>Columnas</label><input type="number" id="tb-c" value="3" min="1" max="15"></div>
+                <div class="ff"><label>Ancho (%)</label><input type="number" id="tb-w" value="100" min="20" max="100"></div>
+                <div class="ff"><label>Borde (px)</label><input type="number" id="tb-b" value="1" min="0" max="6"></div>
+                <div class="ff"><label>Estilo borde</label>
+                    <select id="tb-bs">
+                        <option value="solid">Sólido</option>
+                        <option value="dashed">Guiones</option>
+                        <option value="dotted">Puntos</option>
+                        <option value="none">Sin borde</option>
+                    </select>
+                </div>
+                <div class="ff"><label>Color borde</label><input type="color" id="tb-bc" value="#d0d5dd" style="height:34px;padding:2px 4px"></div>
+                <label class="ff-check span2"><input type="checkbox" id="tb-hd" checked> Primera fila como encabezado</label>
+                <label class="ff-check span2"><input type="checkbox" id="tb-st"> Filas alternas con fondo gris</label>
+            </div>
+        </div>
+        <div class="mf">
+            <button class="btn-m btn-sec" data-action="close-ov" data-target="ov-tbl">Cancelar</button>
+            <button class="btn-m btn-pri" data-action="do-table">Insertar tabla</button>
+        </div>
+    </div>
+</div>
+
+<div class="ov" id="ov-lnk">
+    <div class="modal" id="lnk-modal">
+        <div class="mh">
+            <h2>Insertar enlace</h2><button class="mx" data-action="close-ov" data-target="ov-lnk">✕</button>
+        </div>
+        <div class="mb" style="display:flex;flex-direction:column;gap:14px">
+            <div class="ff"><label>Texto</label><input type="text" id="lnk-txt" placeholder="Texto del enlace"></div>
+            <div class="ff"><label>URL</label><input type="text" id="lnk-url" placeholder="https://..."></div>
+            <div class="ff"><label>Abrir en</label><select id="lnk-tgt">
+                <option value="_blank">Nueva pestaña</option>
+                <option value="_self">Misma pestaña</option>
+            </select></div>
+        </div>
+        <div class="mf">
+            <button class="btn-m btn-sec" data-action="close-ov" data-target="ov-lnk">Cancelar</button>
+            <button class="btn-m btn-pri" data-action="do-link">Insertar</button>
+        </div>
+    </div>
+</div>
+
+<div id="tctx">
+    <div class="cx" data-action="tca" data-tca="rowAbove">↑ Insertar fila arriba</div>
+    <div class="cx" data-action="tca" data-tca="rowBelow">↓ Insertar fila abajo</div>
+    <div class="cx" data-action="tca" data-tca="colLeft">← Columna a la izquierda</div>
+    <div class="cx" data-action="tca" data-tca="colRight">→ Columna a la derecha</div>
+    <div class="cx-sep"></div>
+    <div class="cx" data-action="tca" data-tca="delRow">Eliminar fila</div>
+    <div class="cx" data-action="tca" data-tca="delCol">Eliminar columna</div>
+    <div class="cx red" data-action="tca" data-tca="delTable">Eliminar tabla</div>
+</div>
+
+<style>
+.admin-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    background: #7c3aed;
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.04em;
+}
+.meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 10px;
+}
+.meta-row:last-child {
+    margin-bottom: 0;
+}
+.meta-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+}
+.meta-value {
+    font-size: 12px;
+    color: var(--text-primary);
+    word-break: break-word;
+}
+</style>

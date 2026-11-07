@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "QuickMailTemplates (QMT)",
+  "version": "1.5",
+  "description": "Gestiona e inserta plantillas personalizadas directamente en Gmail.",
+  
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "128": "assets/icons/icon-128.webp"
+    }
+  },
+
+  "permissions": [
+    "scripting", 
+    "tabs", 
+    "activeTab", 
+    "storage",
+    "identity"
+  ],
+
+  "host_permissions": [
+    "https://mail.google.com/*",
+    "https://*.firebaseio.com/*",
+    "https://*.googleapis.com/*",
+    "https://www.gstatic.com/*"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["app/content.js"],
+      "css": ["app/css/content.css"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/icons/*"],
+      "matches": ["https://mail.google.com/*"]
+    }
+  ],
+
+  "icons": {
+    "128": "assets/icons/icon-128.webp"
+  },
+  "background": {
+    "service_worker": "service_worker.js",
+    "type": "module"
+  }
+}
